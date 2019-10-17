@@ -67,7 +67,9 @@ public class Calculator3 extends Application {
     Button btnMod = new Button("%");
     Button btnSquare = new Button("Sqr");
     Button btnSquareRoot = new Button("√");
-    
+    Button btnOneByX = new Button("1/x");
+    Button btnCube = new Button("Cub");
+        
     @Override
     public void start(Stage ps) {
         //Controls
@@ -92,6 +94,8 @@ public class Calculator3 extends Application {
         btnStyle(btnSquare, "btnOpr");
         btnStyle(btnSquareRoot, "btnOpr");
         btnStyle(btnDot, "btnOpr");
+        btnStyle(btnOneByX, "btnOpr");
+        btnStyle(btnCube, "btnOpr");
        //Digits buttons
        
         btnStyle(btnOne, "btnNo");
@@ -112,7 +116,7 @@ public class Calculator3 extends Application {
             public void handle(ActionEvent event) 
             {
                 txtInput.editableProperty().set(true);
-                txtInput.setText("0");
+                txtInput.setText("");
                 mathOpr = "";
                 input1 = "";
                 input2 = "";
@@ -140,9 +144,6 @@ public class Calculator3 extends Application {
         performOperation(btnDiv, "/");
         performOperation(btnMod, "%");
         
-//        performOperation(btnSquareRoot, "sqrt");
-//        performOperation(btnSquare, "sqr");
-        
         //Calculate the Answer
         btnEqual.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -157,39 +158,7 @@ public class Calculator3 extends Application {
                 else
                 {
                     input2 = txtInput.getText();
-                    String flag1 = "";
-                    String flag2 = "";
-                    String flag3 = "";
-                    String flag4 = "";
-//                    for(int i=0; i < input1.length();i++)
-//                    {
-//                        if(input1.charAt(i) == '.')
-//                        {
-//                           flag1= "float";
-//                        }
-//                    }
-//                    for(int i=0; i < input2.length();i++)
-//                    {
-//                        if(input2.charAt(i) == '.')
-//                        {
-//                           flag2= "float";
-//                        }
-//                    }
-//                    
-//                    for(int i=0; i < input1.length();i++)
-//                    {
-//                        if(input1.charAt(i) != '.')
-//                        {
-//                           flag1= "integer";
-//                        }
-//                    }
-//                    for(int i=0; i < input2.length();i++)
-//                    {
-//                        if(input2.charAt(i) != '.')
-//                        {
-//                           flag2= "integer";
-//                        }
-//                    }
+                    
                     if((isDorPresent(input1)) && (isDorPresent(input2)))
                     {
                         Double firstPara = Double.parseDouble(input1);
@@ -346,7 +315,7 @@ public class Calculator3 extends Application {
                 txtInput.editableProperty().set(false);
             }
         });
-        //Calculate the Square Answer
+//Calculate the Square Answer
         btnSquare.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -372,7 +341,93 @@ public class Calculator3 extends Application {
                 txtInput.editableProperty().set(false);
             }
         });
-        //Calculate the Square Root Answer
+//Calculate the Cube Answer
+        btnCube.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) 
+            {
+                txtInput.editableProperty().set(true);
+                if(txtInput.getText() == "")
+                {
+                    
+                }
+                else
+                {
+                    input1 = txtInput.getText();
+                    Double firstPara = Double.parseDouble(input1);
+                    System.out.println(firstPara);
+                    String answer = "";
+                    answer = String.valueOf(Math.pow(firstPara, 3));
+                    if(answer != "")
+                    {
+                        txtInput.setText(answer);
+                    }
+                }
+                txtInput.editableProperty().set(false);
+            }
+        });        
+//Change the Sign
+        btnSign.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) 
+            {
+                txtInput.editableProperty().set(true);
+                if(txtInput.getText() == "")
+                {
+                    
+                }
+                else
+                {
+                    input1 = txtInput.getText();
+                    Double firstPara = Double.parseDouble(input1);
+                    if(firstPara > 0)
+                    {
+                        firstPara = firstPara * -1;
+                    }
+                    else if (firstPara < 0)
+                    {
+                        firstPara = firstPara * -1; 
+                    }
+                    System.out.println(firstPara);
+                    String answer = "";
+                    answer = String.valueOf(firstPara);
+                    if(answer != "")
+                    {
+                        txtInput.setText(answer);
+                    }
+                }
+                txtInput.editableProperty().set(false);
+            }
+        });        
+//Change the Sign
+        btnOneByX.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) 
+            {
+                txtInput.editableProperty().set(true);
+                if(txtInput.getText() == "")
+                {
+                    
+                }
+                else
+                {
+                    input1 = txtInput.getText();
+                    Double firstPara = Double.parseDouble(input1);
+                    System.out.println(firstPara);
+                    String answer = "";
+                    answer = String.valueOf(1/firstPara);
+                    if(answer != "")
+                    {
+                        txtInput.setText(answer);
+                    }
+                }
+                txtInput.editableProperty().set(false);
+            }
+        });        
+//Calculate the Square Root Answer
         btnSquareRoot.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -434,12 +489,12 @@ ColumnConstraints column4 = new ColumnConstraints();
 
 column4.setPercentWidth(100);
 
-ColumnConstraints column5 = new ColumnConstraints();
+//ColumnConstraints column5 = new ColumnConstraints();
+//
+//column5.setPercentWidth(100);
 
-column5.setPercentWidth(100);
 
-
-hPane1.getColumnConstraints().addAll(column1, column2,column3,column4,column5);
+hPane1.getColumnConstraints().addAll(column1, column2,column3,column4);
 
 RowConstraints rowConstraints1=new RowConstraints();
 rowConstraints1.setPercentHeight(100);
@@ -458,79 +513,84 @@ rowConstraints5.setPercentHeight(100);
 
 RowConstraints rowConstraints6=new RowConstraints();
 rowConstraints6.setPercentHeight(100);
+RowConstraints rowConstraints7=new RowConstraints();
+rowConstraints7.setPercentHeight(100);
 
 hPane1.getRowConstraints().
-
-addAll(rowConstraints1,rowConstraints2,rowConstraints3,rowConstraints4,rowConstraints5,rowConstraints6);
+//
+addAll(rowConstraints1,rowConstraints2,rowConstraints3,rowConstraints4,rowConstraints5,rowConstraints6,rowConstraints7);
         
         txtInput.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        
         hPane1.add(txtInput,0,0,4,1);
+//        hPane1.add(btnHistory,4,0);
         
-        hPane1.add(btnHistory,4,0);
         hPane1.add(btnClear,0,1);
-        hPane1.add(btnRemove,1,1);
-        hPane1.add(btnSquareRoot,2,1);
-        hPane1.add(btnSquare,3,1);
+        hPane1.add(btnSquareRoot,1,1);
+        hPane1.add(btnMod,2,1);
+        hPane1.add(btnOneByX,3,1);
+        
+        hPane1.add(btnRemove,0,2);
+        hPane1.add(btnCube,1,2);
+        hPane1.add(btnSquare,2,2);
+        hPane1.add(btnDiv,3,2);
         
         
-        hPane1.add(btnPlus,4,1);
-        
-        
-        
-////second row
-        hPane1.add(btnSeven,0,2);
-        hPane1.add(btnEight,1,2);
-        hPane1.add(btnNine,2,2);
-        hPane1.add(btnSub,3,2);
-        hPane1.add(btnMul,4,2);
-//// 3rd row
-        hPane1.add(btnFour,0,3);
-        hPane1.add(btnFive,1,3);
-        hPane1.add(btnSix,2,3);
-        hPane1.add(btnDiv,3,3);        
-////4th row        
-        hPane1.add(btnOne,0,4);
-        hPane1.add(btnTwo,1,4);
-        hPane1.add(btnThree,2,4);
-        hPane1.add(btnMod,3,4);
-//// 5th row       
-        hPane1.add(btnSign,0,5);
-        hPane1.add(btnZero,1,5);
-        hPane1.add(btnDot,2,5);
-        hPane1.add(btnEqual,3,5);
+//second row
+        hPane1.add(btnSeven,0,3);
+        hPane1.add(btnEight,1,3);
+        hPane1.add(btnNine,2,3);
+        hPane1.add(btnMul,3,3);
+// 3rd row
+        hPane1.add(btnFour,0,4);
+        hPane1.add(btnFive,1,4);
+        hPane1.add(btnSix,2,4);
+        hPane1.add(btnSub,3,4);        
+//4th row        
+        hPane1.add(btnOne,0,5);
+        hPane1.add(btnTwo,1,5);
+        hPane1.add(btnThree,2,5);
+        hPane1.add(btnPlus,3,5);
+// 5th row       
+        hPane1.add(btnSign,0,6);
+        hPane1.add(btnZero,1,6);
+        hPane1.add(btnDot,2,6);
+        hPane1.add(btnEqual,3,6);
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: rgba(0,0,0,0);");
         Scene scene = new Scene(hPane1);
-        // create a menu 
-        Menu m = new Menu("View"); 
-        Menu h = new Menu("History");
-        // create menuitems 
-        MenuItem m1 = new MenuItem("menu item 1"); 
-        MenuItem m2 = new MenuItem("menu item 2"); 
-        MenuItem m3 = new MenuItem("menu item 3"); 
-  // create menuitems 
-        MenuItem h1 = new MenuItem("menu item 1"); 
-        MenuItem h2 = new MenuItem("menu item 2"); 
-        MenuItem h3 = new MenuItem("menu item 3"); 
-        // add menu items to menu 
-        m.getItems().add(m1); 
-        m.getItems().add(m2); 
-        m.getItems().add(m3); 
-        // add menu items to menu 
-        h.getItems().add(h1); 
-        h.getItems().add(h2); 
-        h.getItems().add(h3); 
-  
-        // create a menubar 
-        MenuBar mb = new MenuBar(); 
-  
-        // add menu to menubar 
-        mb.getMenus().add(m); 
-          // add menu to menubar 
-        mb.getMenus().add(h);
-        // create a VBox 
-        VBox vb = new VBox(mb);
-        hPane1.add(vb,0,0);
+
+////Menu bar Working
+//// create a menu 
+//        Menu m = new Menu("View"); 
+//        Menu h = new Menu("History");
+//        // create menuitems 
+//        MenuItem m1 = new MenuItem("menu item 1"); 
+//        MenuItem m2 = new MenuItem("menu item 2"); 
+//        MenuItem m3 = new MenuItem("menu item 3"); 
+//  // create menuitems 
+//        MenuItem h1 = new MenuItem("menu item 1"); 
+//        MenuItem h2 = new MenuItem("menu item 2"); 
+//        MenuItem h3 = new MenuItem("menu item 3"); 
+//        // add menu items to menu 
+//        m.getItems().add(m1); 
+//        m.getItems().add(m2); 
+//        m.getItems().add(m3); 
+//        // add menu items to menu 
+//        h.getItems().add(h1); 
+//        h.getItems().add(h2); 
+//        h.getItems().add(h3); 
+//  
+//        // create a menubar 
+//        MenuBar mb = new MenuBar(); 
+//  
+//        // add menu to menubar 
+//        mb.getMenus().add(m); 
+//          // add menu to menubar 
+//        mb.getMenus().add(h);
+//        // create a VBox 
+//        VBox vb = new VBox(mb);
+//        hPane1.add(vb,0,0);
         //Setup the icon or logo of the App
         Image icon = new Image(getClass().getResourceAsStream("/resources/icon.png"));
         ps.getIcons().add(icon);
@@ -544,8 +604,10 @@ addAll(rowConstraints1,rowConstraints2,rowConstraints3,rowConstraints4,rowConstr
         ps.setY(100);
         ps.setMinWidth(400);
         ps.setMinHeight(600);
-//        ps.setMaxWidth(350);
-//        ps.setMaxHeight(600);
+        
+        ps.setMaxWidth(400);
+        ps.setMaxHeight(600);
+        
         ps.setScene(scene);
         ps.show();
     }
