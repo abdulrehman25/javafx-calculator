@@ -605,8 +605,8 @@ addAll(rowConstraints1,rowConstraints2,rowConstraints3,rowConstraints4,rowConstr
         ps.setMinWidth(400);
         ps.setMinHeight(600);
         
-        ps.setMaxWidth(400);
-        ps.setMaxHeight(600);
+//        ps.setMaxWidth(400);
+//        ps.setMaxHeight(600);
         
         ps.setScene(scene);
         ps.show();
@@ -636,24 +636,31 @@ addAll(rowConstraints1,rowConstraints2,rowConstraints3,rowConstraints4,rowConstr
             public void handle(ActionEvent event) {
                 txtInput.editableProperty().set(true);
                 String abc = txtInput.getText();
-                if(answered == true)
+                if(isDorPresent(txtInput.getText()) && btnSelect == btnDot)
                 {
-                    txtInput.setText("");
-                }
-                if(abc != "")
-                {
-                    if(abc == "0")
-                    {
-                        txtInput.setText(inputNo);
-                    }
-                    else
-                    {
-                        txtInput.setText(abc + inputNo);
-                    }
+                    txtInput.setText(txtInput.getText());
                 }
                 else
                 {
-                    txtInput.setText(inputNo);
+                    if(answered == true)
+                    {
+                        txtInput.setText("");
+                    }
+                    if(abc != "")
+                    {
+                        if(abc == "0")
+                        {
+                            txtInput.setText(inputNo);
+                        }
+                        else
+                        {
+                            txtInput.setText(abc + inputNo);
+                        }
+                    }
+                    else
+                    {
+                        txtInput.setText(inputNo);
+                    }
                 }
                 txtInput.editableProperty().set(false);
             }
